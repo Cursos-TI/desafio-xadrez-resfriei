@@ -1,71 +1,97 @@
 #include <stdio.h>
 
- int main() {
- 
-     int i;
-         
-     printf("## Bem-vindo ao jogo de xadrez! ##\n\n");
-     printf("* Movimentando as peças Torre, Bispo, Rainha e Cavalo* \n\n");
-     
-     // Movimentando a Torre (5 casas para a direita) utilizando for:
+// Movimento da Torre com recursividade
 
-     printf("Movimentando a Torre 5 casas na horizontal à direita\n");
+void moverTorreCima(int casas) {
+    if (casas == 0) return;
+    printf("Cima\n");
+    moverTorreCima(casas - 1);
+}
 
-     for (i = 1; i <= 5; i++) 
-     {
-         printf("TORRE: %d Direita\n", i);
-     }
+void moverTorreDireita(int casas) {
+    if (casas == 0) return;
+    printf("Direita\n");
+    moverTorreDireita(casas - 1);
+}
 
-     
-     // Movimentando o Bispo (5 casa na diagonal, para cima e a direita) utilizando while
- 
-     printf("\nMovimentando o Bispo 5 casas na diagonal para cima e à direita\n");
+// Movimento do Bispo com recursividade
 
-     i = 1;
-    
-     while (i <= 5)
-     {
-        printf("BISPO: %d Cima e à direita\n", i);
-         i++;
-     }
+void moverBispoRecursivo(int casas) {
+    if (casas == 0) return;
+    printf("Diagonal superior direita\n");
+    moverBispoRecursivo(casas - 1);
+}
 
- 
-     // Movimentando a Rainha (8 casas para a esquerada) utilizando do-while
+// Movimento do Bispo com loops aninhados
 
-     printf("\nMovimentando a Rainha 8 casas na horizontal para à esquerda\n");
-
-     i = 1;
-
-     do {
-         printf("RAINHA: %d Esquerda\n", i);
-         i++; 
-     } while (i <= 8);
-
-
-     // Movimentando o Cavalo (duas casas para baixo e uma para a esquerda) utilizando for e while
- 
-    int movBaixo = 2;
-    int movEsquerda = 1;
-
-    // Primeiro loop: duas casas para baixo usando for
-
-    printf("\nMovimentando o Cavalo 2 casas para baixo e uma à esquerda\n");
-
-    for (int i = 1; i <= movBaixo; i++) {
-        printf("CAVALO: %d Baixo\n", i);
+void moverBispoComLoops(int linhas, int colunas) {
+    for (int i = 0; i < linhas; i++) {         // vertical
+        for (int j = 0; j < colunas; j++) {    // horizontal
+            printf("Diagonal superior direita\n");
+        }
     }
+}
 
-    // Segundo loop: uma casa para a esquerda usando while
+// Movimento da Rainha com recursividade (mistura de Torre e Bispo)
 
-    int j = 1;
-    while (j <= movEsquerda) {
-        printf("CAVALO: %d Esquerda\n", j);
-        j++;
+void moverRainhaCima(int casas) {
+    if (casas == 0) return;
+    printf("Cima\n");
+    moverRainhaCima(casas - 1);
+}
+
+void moverRainhaDiagonal(int casas) {
+    if (casas == 0) return;
+    printf("Diagonal superior direita\n");
+    moverRainhaDiagonal(casas - 1);
+}
+
+// Movimento do Cavalo com loops aninhados e controle de fluxo
+
+void moverCavalo() {
+    // Simula movimentos válidos do cavalo: 2 cima + 1 direita
+
+    int movimentos = 3;
+
+    for (int i = 0; i < movimentos; i++) {
+        for (int j = 0; j < movimentos; j++) {
+            if (i == j) continue; // pular movimentos inválidos
+            if (i + j > 2) break; // simula limite de movimento
+            printf("Cavalo se move em L: 2 cima, 1 direita\n");
+        }
     }
+}
 
+int main() {
+    int casasTorre = 3;
+    int casasBispo = 2;
+    int linhasBispo = 2;
+    int colunasBispo = 2;
+    int casasRainha = 3;
+    int casasCavalo = 2;
+    int UmCavalo = 1;
 
-     printf("## Fim do jogo de xadrez! ##\n");
+    printf("Movimento da Torre:\n");
+    moverTorreCima(casasTorre);
+    moverTorreDireita(casasTorre);
+    printf("\n");
 
-     return 0;
-     
- }
+    printf("Movimento do Bispo (recursivo):\n");
+    moverBispoRecursivo(casasBispo);
+    printf("\n");
+
+    printf("Movimento do Bispo (com loops aninhados):\n");
+    moverBispoComLoops(linhasBispo, colunasBispo);
+    printf("\n");
+
+    printf("Movimento da Rainha: \n");
+    moverRainhaCima(casasRainha);
+    moverRainhaDiagonal(casasRainha);
+    printf("\n");
+
+    printf("Movimento do Cavalo:\n");
+    moverCavalo(casasCavalo, UmCavalo);
+    printf("\n");
+
+    return 0;
+}
